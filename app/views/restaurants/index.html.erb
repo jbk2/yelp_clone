@@ -1,7 +1,13 @@
+
 <% if @restaurants.any? %>
+<ul>
   <% @restaurants.each do |restaurant| %>
-    <%= restaurant.name %>
+  <li><%= restaurant.name %></li>
+  <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+  <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant),
+    method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %>
 <% else %>
 <h1>No restaurants yet</h1>
 <% end %>
+</ul>

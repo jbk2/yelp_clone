@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'restaurants listing page' do
   
-  context 'no restaurants' do
+  context 'with no restaurants' do
     it 'tells me there are no restaurants' do
       visit '/restaurants'
       expect(page).to have_content('No restaurants yet')
@@ -21,15 +21,45 @@ describe 'restaurants listing page' do
     end
   end
 
-  context 'are restaurants' do
+  context 'when there are restaurants' do
     before do
-      Restaurant.create(name: 'Pret')
+      Restaurant.create(name: 'Pret', address: '2 city road', cuisine: 'Thai')
     end
     
     it 'should show the restaurant' do
       visit '/restaurants'
-      expect(page).to have_content('Pret')
+      expect(page).to have_content('Pret') 
     end
-  end
+    
+    describe 'editing a restaurant' do
+      before { Restaurant.create(name: 'KFC', address: '1 High St, London',
+                                 cuisine: 'Thai') }
 
+      it 'saves the change to the restaurant' do
+        visit '/restaurants'
+        click_link 'Edit KFC'
+
+        fill_in 'Name', with: 'Kentucky Fried Chicken'
+        click_button 'Update Restaurant'
+
+        expect(current_path).to eq '/restaurants'
+        expect(page).to have_content('Kentucky Fried Chicken')
+      end
+    end
+
+    describe 'deleting a restaurant' do
+      before { Restaurant.create(name: 'KFC', address: '1 High St, London',
+                                cuisine: 'Thai') }
+
+      it 'removes a restaurant from the listing' do
+        visit '/restaurants'
+        click_link 'Delete KFC'
+
+        expect(page).not_to have_content('KFC')
+        expect(page).to have_content('Deleted successfully') 
+
+      end
+    end
+
+  end
 end
