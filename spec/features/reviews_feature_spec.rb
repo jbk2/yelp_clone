@@ -14,7 +14,7 @@ describe 'writing reviews' do
 
     fill_in 'Thoughts', with: 'This was decent'
     select '4', from: 'Rating'
-    clck_button 'Leave review'
+    click_button 'Leave review'
 
     expect(current_path).to eq '/restaurants'
     expect(page).to have_content('This was decent')
