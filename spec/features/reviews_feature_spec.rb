@@ -5,7 +5,7 @@ describe 'writing reviews' do
 
   it 'restaurants begin with no reviews' do
     visit '/restaurants'
-    expect(page).to have_content('0 Reviews')
+    expect(page).to have_content('0 reviews')
   end
   
   it 'adds the review to the restaurant' do
@@ -18,6 +18,6 @@ describe 'writing reviews' do
 
     expect(current_path).to eq '/restaurants'
     expect(page).to have_content('This was decent')
-    expect(page).to have_content('1 Review')
+    expect(page).to have_content('1 review')
   end
 end

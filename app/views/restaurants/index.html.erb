@@ -9,7 +9,7 @@
     <%= link_to "Review #{restaurant.name}",
       new_restaurant_review_path(restaurant.id) %>
 
-      <h4><%= pluralize(restaurant.reviews.count, 'Review') %></h4>
+      <h4><%= pluralize(restaurant.reviews.count, 'review') %></h4>
       <ul>
         <% restaurant.reviews.each do |review| %>
           <li>
