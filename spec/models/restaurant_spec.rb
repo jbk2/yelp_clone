@@ -34,4 +34,42 @@ describe Restaurant do
 
     expect(restaurant2).not_to be_valid # this test is not working properly.
   end
+
+  describe '#average_rating' do
+    let(:restaurant) { Restaurant.create(name: 'KFC', 
+                                        address: '1 High St, London',
+                                        cuisine: 'Thai') }
+  
+    context 'with 0 reviews' do
+      it 'returns N/A' do
+        expect(restaurant.average_rating).to eq('N/A')
+      end
+    end
+
+    context 'with 1 review' do
+      before { restaurant.reviews.create(thoughts: 'nice one', rating: 3) }
+      it 'returns the score of review with only one review' do
+        expect(restaurant.average_rating).to eq(3)
+      end
+    end
+
+    context 'with >1 review' do
+      before(:each) { restaurant.reviews.create(thoughts: 'Lovely meal', rating: 3) }
+      before(:each) { restaurant.reviews.create(thoughts: 'Another nice one', rating: 5) }
+
+      it 'will show the average review rating' do
+        expect(restaurant.average_rating).to eq(4)
+      end
+    end
+
+    context 'with a decimal average' do
+      before  do  restaurant.reviews.create(thoughts: 'Lovely meal',rating: 5)
+                  restaurant.reviews.create(thoughts: 'Lovely meals',rating: 2)
+      end
+      
+      it 'does not round up or down' do
+        expect(restaurant.average_rating).to eq(3.5)
+      end
+    end
+  end
 end

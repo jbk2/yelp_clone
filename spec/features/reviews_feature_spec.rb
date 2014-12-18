@@ -9,16 +9,27 @@ describe 'writing reviews' do
   end
   
   it 'adds the review to the restaurant' do
-    visit '/restaurants'
-    click_link 'Review Nandos'
-
-    fill_in 'Thoughts', with: 'This was decent'
-    select '4', from: 'Rating'
-    click_button 'Leave review'
+    leave_review(3, 'This was decent')
 
     expect(current_path).to eq '/restaurants'
     expect(page).to have_content('This was decent')
     expect(page).to have_content('1 review')
+  end
+
+  it 'calculates the average score of reviews' do
+    leave_review(4, 'This was decent')
+    leave_review(2, 'Not bad')
+
+    expect(page).to have_content('Average rating - 3')
+  end
+
+  def leave_review(rating, thoughts)
+    visit '/restaurants'
+    click_link 'Review Nandos'
+
+    fill_in 'Thoughts', with: thoughts
+    select rating.to_s, from: 'Rating'
+    click_button 'Leave review' 
   end
 end
 
