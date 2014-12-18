@@ -21,3 +21,7 @@ describe 'writing reviews' do
     expect(page).to have_content('1 review')
   end
 end
+
+# if the user wrote the review he can edit it? No users yet.
+# only the most recent 5 reviews are shown. Do once factories set up.
+# An average review score is shown.

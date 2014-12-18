@@ -95,3 +95,5 @@ describe 'restaurants index page' do
     end
   end
 end
+
+# There is a restaurant page, with all of the review listed.

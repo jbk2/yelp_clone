@@ -7,7 +7,12 @@ class ReviewsController < ApplicationController
 
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @restaurant.reviews.create(params[:review].permit(:thoughts, :rating))
-    redirect_to '/restaurants'
+    @review = @restaurant.reviews.new(params[:review].permit(:thoughts, :rating))
+
+    if @review.save
+      redirect_to '/restaurants'
+    else
+      render 'new'
+    end 
   end
 end
