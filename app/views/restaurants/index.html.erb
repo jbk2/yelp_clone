@@ -12,11 +12,17 @@
       new_restaurant_review_path(restaurant.id) %>
 
       <h4><%= pluralize(restaurant.reviews.count, 'review') %></h4>
-      <h4>Average rating - <%= restaurant.average_rating %></h4> 
+      <h5>Average rating - 
+        <%= number_with_precision(restaurant.average_rating, precision: 1) %>
+        <%= star_rating(restaurant.average_rating) %>
+      </h5>
+ 
       <ul>
         <% restaurant.reviews.each do |review| %>
           <li>
-            <strong><%= review.rating %></strong> - <%= review.thoughts %>
+            <strong><%= review.rating %></strong> - 
+            <%= review.thoughts %>
+            <%= star_rating(review.rating) %>
           </li>
         <% end %>
       </ul>
@@ -30,3 +36,4 @@
 <% end %>
 
 <%= link_to 'Create a restaurant', new_restaurant_path %>
+<button id='js_test'>JS test button</button>
