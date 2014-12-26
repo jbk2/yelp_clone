@@ -7,7 +7,6 @@ describe 'restaurants index page' do
       visit '/restaurants'
       expect(page).to have_content('No restaurants yet')
       expect(page).to have_link('Create a restaurant')
-
     end
   end
 
@@ -23,7 +22,6 @@ describe 'restaurants index page' do
         expect(current_path).to eq('/restaurants')
         expect(page).to have_content('Nandos')
         expect(page).to have_link('Create a restaurant')
-
       end
     end
 
