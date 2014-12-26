@@ -16,43 +16,45 @@
     <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant),
       method: :delete, data: { confirm: 'Are you sure?' } %>
 
-      <h4 class='review_count'><%= pluralize(restaurant.reviews.count, 'review')%></h4>
-      <h5>Average rating - 
+    <h4 class='review_count'><%= pluralize(restaurant.reviews.count, 'review')%>
+    </h4>
+      
+    <h5>Average rating - 
 
-        <span class='average_rating_number'>
-          <%= number_with_precision(restaurant.average_rating, precision: 1) %>
-        </span>
+      <span class='average_rating_number'>
+        <%= number_with_precision(restaurant.average_rating, precision: 1) %>
+      </span>
 
-        <span class='average_rating_stars'>
-          <%= star_rating(restaurant.average_rating) %>
-        </span>
+      <span class='average_rating_stars'>
+        <%= star_rating(restaurant.average_rating) %>
+      </span>
 
-      </h5>
+    </h5>
  
-      <ul>
-        <% restaurant.reviews.each do |review| %>
-          <li>
-            <strong><%= review.rating %></strong> - 
-            <%= review.thoughts %>
-            <%= star_rating(review.rating) %>
-          </li>
-        <% end %>
-      </ul>
-
-      <%= form_for([restaurant, @review]) do |f| %>
-
-        <%= f.label :thoughts %>
-        <%= f.text_field :thoughts %>
-
-        <%= f.label :rating %>
-        <%= f.select :rating, 1..5 %>
-
-        <%= f.submit 'Leave review' %>
+    <ul>
+      <% restaurant.reviews.each do |review| %>
+        <li>
+          <strong><%= review.rating %></strong> - 
+          <%= review.thoughts %>
+          <%= star_rating(review.rating) %>
+        </li>
       <% end %>
+    </ul>
 
-      <%= render 'review_form' %>
+    <%= form_for([restaurant, @review]) do |f| %>
 
-    </div>
+      <%= f.label :thoughts %>
+      <%= f.text_field :thoughts %>
+
+      <%= f.label :rating %>
+      <%= f.select :rating, 1..5 %>
+
+      <%= f.submit 'Leave review' %>
+    <% end %>
+
+    <%= render 'review_form' %>
+
+  </div>
   <% end %>
 
 <% else %>
