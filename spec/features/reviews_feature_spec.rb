@@ -16,7 +16,7 @@ describe 'writing reviews' do
     expect(page).to have_content('1 review')
   end
 
-  it 'calculates the average score of reviews' do
+  it 'calculates the average score of reviews', js: true do
     leave_review(4, 'This was decent')
     leave_review(2, 'Not bad')
 
