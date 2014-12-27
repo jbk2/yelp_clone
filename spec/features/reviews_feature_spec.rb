@@ -3,31 +3,40 @@ require 'rails_helper'
 describe 'writing reviews' do
   before { Restaurant.create(name: 'Nandos', address: '2 city road', cuisine: 'Thai') }
 
-  it 'restaurants begin with no reviews' do
-    visit '/restaurants'
-    expect(page).to have_content('0 reviews')
-  end
-  
-  it 'adds the review to the restaurant', js: true do
-    leave_review(3, 'This was decent')
-
-    expect(current_path).to eq '/restaurants'
-    expect(page).to have_content('This was decent')
-    expect(page).to have_content('1 review')
+  context 'logged out' do
+    it 'does not show the review form' do
+      visit '/restaurants'
+      expect(page).not_to have_field('Thoughts')
+    end
   end
 
-  it 'calculates the average score of reviews', js: true do
-    leave_review(4, 'This was decent')
-    leave_review(2, 'Not bad')
+  context 'logged in' do
+    it 'restaurants begin with no reviews' do
+      visit '/restaurants'
+      expect(page).to have_content('0 reviews')
+    end
+    
+    it 'adds the review to the restaurant', js: true do
+      leave_review(3, 'This was decent')
 
-    expect(page).to have_content('Average rating - 3')
-  end
+      expect(current_path).to eq '/restaurants'
+      expect(page).to have_content('This was decent')
+      expect(page).to have_content('1 review')
+    end
 
-  def leave_review(rating, thoughts)
-    visit '/restaurants'
-    fill_in 'Thoughts', with: thoughts
-    select rating.to_s, from: 'Rating'
-    click_button 'Leave review' 
+    it 'calculates the average score of reviews', js: true do
+      leave_review(4, 'This was decent')
+      leave_review(2, 'Not bad')
+
+      expect(page).to have_content('Average rating - 3')
+    end
+
+    def leave_review(rating, thoughts)
+      visit '/restaurants'
+      fill_in 'Thoughts', with: thoughts
+      select rating.to_s, from: 'Rating'
+      click_button 'Leave review' 
+    end
   end
 end
 
