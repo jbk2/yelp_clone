@@ -21,15 +21,15 @@ describe 'restaurants index page' do
   end  
 end
 
-describe 'testing a javascript function' do
-  before { Restaurant.create(name: 'KFC',
-                             address: '1 High St, London',
-                             cuisine: 'Thai') }
+# describe 'testing a javascript function' do
+#   before { Restaurant.create(name: 'KFC',
+#                              address: '1 High St, London',
+#                              cuisine: 'Thai') }
 
-  it "changes restaurant titles to 'Hello World' when clicked", js: true do
-    visit '/restaurants'
-    click_button 'JS test button'
+#   it "changes restaurant titles to 'Hello World' when clicked", js: true do
+#     visit '/restaurants'
+#     click_button 'JS test button'
 
-    expect(page).to have_content('Hello world')
-  end
-end
+#     expect(page).to have_content('Hello world')
+#   end
+# end

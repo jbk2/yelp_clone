@@ -6,10 +6,8 @@
 
 
 <% if @restaurants.any? %>
-
   <% @restaurants.each do |restaurant| %>
   <div class='restaurant'>
-
     <h2><em><%= restaurant.name %></h2></em>
 
     <% if user_signed_in? %>
@@ -18,19 +16,15 @@
         method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
 
-    <h4 class='review_count'><%= pluralize(restaurant.reviews.count, 'review')%>
-    </h4>
+    <h4 class='review_count'><%= pluralize(restaurant.reviews.count, 'review')%></h4>
       
     <h5>Average rating - 
-
       <span class='average_rating_number'>
         <%= number_with_precision(restaurant.average_rating, precision: 1) %>
       </span>
-
       <span class='average_rating_stars'>
         <%= star_rating(restaurant.average_rating) %>
       </span>
-
     </h5>
  
     <ul>
@@ -45,18 +39,15 @@
 
     <% if user_signed_in? %>
       <%= form_for([restaurant, @review]) do |f| %>
-
         <%= f.label :thoughts %>
         <%= f.text_field :thoughts %>
-
         <%= f.label :rating %>
         <%= f.select :rating, 1..5 %>
-
         <%= f.submit 'Leave review' %>
       <% end %>
     <% end %>
 
-    <%= render 'review_form' %>
+    <%= render 'review_errors_form' %>
 
   </div>
   <% end %>
