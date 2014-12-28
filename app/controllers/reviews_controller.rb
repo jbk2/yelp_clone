@@ -9,8 +9,13 @@ class ReviewsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @review = @restaurant.reviews.new(params[:review].permit(:thoughts, :rating))
 
-    if @review.save
-      render 'create', content_type: :json #this is how we call the create.json.jbuilder
+    if @restaurant.reviews.find_by user_id: current_user.id
+      flash[:notice] = "You already reviewed this restaurant!" 
+      redirect_to '/restaurants'
+
+
+      # @review.save
+      # render 'create', content_type: :json #this is how we call the create.json.jbuilder
 
 # poor way to customise the json data response from the database:
       # render json: @review.to_json(except: [:id, :created_at, :updated_at],
@@ -25,8 +30,9 @@ class ReviewsController < ApplicationController
       # end
 #  !!!! not you must specify 'json' format, as per line 30 in restaurant.js !!!
     else
-      render '/restaurants'
-    end 
-  
+      @review.user = current_user
+      @review.save
+      redirect_to '/restaurants' unless request.xhr?
+    end
   end
 end
