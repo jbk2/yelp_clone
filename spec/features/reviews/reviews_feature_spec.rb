@@ -11,6 +11,11 @@ describe 'writing reviews' do
   end
 
   context 'logged in' do
+    before do 
+      user = User.create(email: 'tests@test.com', password: '12345678', password_confirmation: '12345678')
+      login_as user
+    end
+
     it 'restaurants begin with no reviews' do
       visit '/restaurants'
       expect(page).to have_content('0 reviews')

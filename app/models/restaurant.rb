@@ -5,6 +5,9 @@ class Restaurant < ActiveRecord::Base
   uniqueness: true
   validates :address, presence: true, length: { minimum: 3 }
   validates :cuisine, presence: true
+
+  belongs_to :user
+  
   has_many :reviews # This is the same as writing #reviews method below.
 
   # def reviews

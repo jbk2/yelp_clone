@@ -12,9 +12,11 @@
 
     <h2><em><%= restaurant.name %></h2></em>
 
-    <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
-    <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant),
-      method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% if user_signed_in? %>
+      <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+      <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant),
+        method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
 
     <h4 class='review_count'><%= pluralize(restaurant.reviews.count, 'review')%>
     </h4>
@@ -41,15 +43,17 @@
       <% end %>
     </ul>
 
-    <%= form_for([restaurant, @review]) do |f| %>
+    <% if user_signed_in? %>
+      <%= form_for([restaurant, @review]) do |f| %>
 
-      <%= f.label :thoughts %>
-      <%= f.text_field :thoughts %>
+        <%= f.label :thoughts %>
+        <%= f.text_field :thoughts %>
 
-      <%= f.label :rating %>
-      <%= f.select :rating, 1..5 %>
+        <%= f.label :rating %>
+        <%= f.select :rating, 1..5 %>
 
-      <%= f.submit 'Leave review' %>
+        <%= f.submit 'Leave review' %>
+      <% end %>
     <% end %>
 
     <%= render 'review_form' %>
