@@ -64,11 +64,11 @@ describe 'writing reviews' do
       expect(page).to have_content('not good')
     end
 
-    # it 'user can only leave one review per restaurant', js: true do
-    #   leave_review(3, 'ok')
+    it 'user can only leave one review per restaurant', js: true do
+      leave_review(3, 'ok')
 
-    #   expect(page).not_to have_content('ok')
-    # end
+      expect(page).not_to have_content('ok')
+    end
   end
 end
 
