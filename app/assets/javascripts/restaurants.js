@@ -20,7 +20,6 @@ $(document).ready(function(){
     currentRestaurant.find('.average_rating_number').text(review.restaurant.average_rating);
     currentRestaurant.find('.average_rating_stars').text(review.restaurant.average_rating_stars);
 
-
     });
   });
 });

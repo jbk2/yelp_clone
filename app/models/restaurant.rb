@@ -7,7 +7,6 @@ class Restaurant < ActiveRecord::Base
   validates :cuisine, presence: true
 
   belongs_to :user
-  
   has_many :reviews # This is the same as writing #reviews method below.
 
   # def reviews
